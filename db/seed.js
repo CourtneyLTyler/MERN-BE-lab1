@@ -1,4 +1,4 @@
-const mongoose = require('./schema.js')
+const mongoose = require('./model.js')
 const Note = mongoose.model('Note')
 const translationData = require('./note-data.json')
 
@@ -14,3 +14,4 @@ Note.remove({})
   .catch((err) => {
     console.log(err)
   })
+
