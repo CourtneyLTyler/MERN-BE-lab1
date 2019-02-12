@@ -38,6 +38,7 @@ app.get('/api/notes', (req, res) => {
 
 // show route
 app.get('/api/notes/:id', (req, res) => {
+
     Note.findOne({ _id: req.params.id })
     .then((notes) => {
         res.json(notes)
