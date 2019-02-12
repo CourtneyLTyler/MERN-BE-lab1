@@ -6,8 +6,7 @@ const Note = new Schema({
   content: String
 })
 
+const NoteModel = mongoose.model('Note', Note)
 
+module.exports = NoteModel
 
-module.exports = {
-  Note: mongoose.model('Note', Note)
-}

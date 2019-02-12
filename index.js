@@ -1,7 +1,8 @@
 const express = require('express')
 const parser = require('body-parser')
 const cors = require('cors')
-const mongoose = require('./db/model.js')
+const Note = require('./db/model');
+// const NoteData = require('./db/seed')
 
 const app = express()
 
@@ -12,9 +13,15 @@ app.use(cors())
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 
-// app.get('/', function(req, res) {
-//     res.json({ message: 'hooray! welcome to our api!' });   
-// });
+
+// router.route('/bears/:bear_id')
+
+    // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
+
+
+app.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
+});
 
 app.get('/api/notes', (req, res) => {
     Note.find()
@@ -26,6 +33,7 @@ app.get('/api/notes', (req, res) => {
     })
 })
 
+// create route
 app.post('/api/notes', (req, res) => {
     Note.create(req.body)
       .then((note) => {
@@ -44,6 +52,7 @@ app.put('/api/notes:id', (req,res) => {
         console.log(err)
     })
 })
+
 
 app.delete('/api/notes:id', (req,res) => {
     Note.findOneAndRemove({ _id: req.params.id }).then (note => {

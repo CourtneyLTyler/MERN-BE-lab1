@@ -1,11 +1,11 @@
 const mongoose = require('./model.js')
 const Note = mongoose.model('Note')
-const translationData = require('./note-data.json')
+const NoteData = require('./note-data.json')
 
 
 Note.remove({})
   .then(() => {
-    Note.collection.insert(translationData)
+    Note.collection.insert(NoteData)
       .then((notes) => {
         console.log(notes)
         process.exit()
