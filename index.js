@@ -5,10 +5,11 @@ const Note = require('./db/model');
 // const NoteData = require('./db/seed')
 
 const app = express()
-
-app.set('port', process.env.PORT || 3002)
-app.use(parser.json())
 app.use(cors())
+
+
+app.use(parser.json())
+
 // app.use(express.static('client/build'))
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
@@ -19,12 +20,25 @@ app.use(cors())
     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
 
 
-app.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
-});
+app.set('port', process.env.PORT || 3002)
+
+// app.get('/', function(req, res) {
+//     res.json({ message: 'hooray! welcome to our api!' });   
+// });
 
 app.get('/api/notes', (req, res) => {
     Note.find()
+    .then((notes) => {
+        res.json(notes)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
+// show route
+app.get('/api/notes/:id', (req, res) => {
+    Note.findOne({ _id: req.params.id })
     .then((notes) => {
         res.json(notes)
     })
@@ -44,7 +58,7 @@ app.post('/api/notes', (req, res) => {
       })
   })
 
-app.put('/api/notes:id', (req,res) => {
+app.put('/api/notes/:id', (req,res) => {
     Note.findOneAndUpdate({ _id: req.params.id }).then (note => {
         res.json(note)
     })
@@ -54,7 +68,7 @@ app.put('/api/notes:id', (req,res) => {
 })
 
 
-app.delete('/api/notes:id', (req,res) => {
+app.delete('/api/notes/:id', (req,res) => {
     Note.findOneAndRemove({ _id: req.params.id }).then (note => {
         res.json(note)
     })
@@ -63,3 +77,4 @@ app.delete('/api/notes:id', (req,res) => {
 app.listen(app.get('port'), () => {
     console.log('Server listening on port ' + app.get('port'))
   })
+
