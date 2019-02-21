@@ -72,6 +72,7 @@ app.put('/api/notes/:id', (req,res) => {
 app.delete('/api/notes/:id', (req,res) => {
     Note.findOneAndRemove({ _id: req.params.id }).then (note => {
         res.json(note)
+        res.redirect('/')
     })
 })
 
